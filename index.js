@@ -18,7 +18,7 @@ mongoose.connect('mongodb://localhost:27017/MindMap',{useNewUrlParser:true,useCr
 
 app.get("/",async(req,res)=>{
     console.log("New request!")
-    const user=new Point({title:'主题',parent:"Null",Children:["分支1","分支2","分支3"]})
+    const user=new Point({title:'theme',parent:"Null",Children:["branch1","branch2","branch3"]})
     await user.save()
     res.sendFile('index.html', {root: __dirname})
 })
@@ -39,7 +39,17 @@ app.get("/main.1196e70d.chunk.js",(req,res)=>{
     console.log("New request!")
     res.sendFile('build/static/js/main.1196e70d.chunk.js', {root: __dirname})
 })
-
+app.post("/"),async(req,res)=>{
+    console.log("New request!!!!!!!!!!!!!!!!!!!!!!!!")
+    const new_node=req.new_node
+    const point=new Point({title:new_node.new_node_id,content:"blank",parent:new_node.node_id,Children:[]})
+    await point.save()
+}
+/*app.post("/editNodeInfo"),async(req,res)=>{
+    const new_node=res.new_node
+    const point=new Point({title:new_node.new_node_id,content:new_node.info,parent:new_node.node_id,Children:[]})
+    await point.save()
+}*/
 app.listen(4000,()=>{
     console.log("Listening on port 4000!")
 })

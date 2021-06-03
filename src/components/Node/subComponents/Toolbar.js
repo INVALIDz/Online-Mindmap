@@ -11,17 +11,17 @@ const Toolbar = ({layer, node, parent}) => {
 
     const handleAddChild = () => {
         mindmapHook.addChild(node.id);
-        alert("Adding")
+        
     };
 
     const handleAddSibling = () => {
         mindmapHook.addSibling(node.id, parent.id);
-        alert("Adding")
+       
     };
 
     const handleDeleteNode = () => {
         mindmapHook.deleteNode(node.id, parent.id);
-        alert("Deleting")
+       
     };
 
     const handleEditNode = () => {

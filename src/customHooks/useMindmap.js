@@ -15,26 +15,58 @@ const useMindmap = () => {
             mDispatch(mindmapAction.toggleChildren(node_id, true));
             mDispatch(mindmapAction.addChild(node_id, new_node_id));
             nDispatch(nodeStatusAction.setEdit(new_node_id));
-            console.log("Saving")
-            alert("Saving")
+            const new_node = {
+                node_id,
+                parent_id,
+                new_node_id,
+              };
+              alert("Adding")
+              axios.post("http://localhost:4000/", new_node)
         },
         addSibling: (node_id, parent_id) => {
             const new_node_id = md5('' + Date.now() + Math.random());
             mDispatch(mindmapAction.addSibling(node_id, parent_id, new_node_id));
             nDispatch(nodeStatusAction.setEdit(new_node_id));
+            const new_node = {
+                node_id,
+                parent_id,
+                new_node_id,
+              };
+              alert("Adding")
+              axios.post("http://localhost:4000/", new_node)
         },
         moveNode: (node_id, target_id, parent_id, is_sibling) => {
             mDispatch(mindmapAction.moveNode(node_id, target_id, parent_id, is_sibling));
             nDispatch(nodeStatusAction.setSelect(node_id));
+            const new_node = {
+                node_id,
+                parent_id,
+                new_node_id,
+              };
+              axios.post('http://localhost:4000/move', new_node)
         },
         editNode: node_id => {
             nDispatch(nodeStatusAction.setEdit(node_id));
+            const new_node = {
+                node_id
+              };
+              axios.post('http://localhost:4000/edit', new_node)
         },
         changeText: (node_id, text) => {
             mDispatch(mindmapAction.changeText(node_id, text));
+            const new_node = {
+                node_id,
+               text,
+              };
+              axios.post('http://localhost:4000/changeText', new_node)
         },
         editNodeInfo:(node_id,info)=>{
-            mDispatch(mindmapAction.changeInfo(node_id, info));                      
+            mDispatch(mindmapAction.changeInfo(node_id, info));
+            const new_node = {
+                node_id,
+                info,
+              };
+              axios.post('http://localhost:4000/editNodeInfo', new_node)                      
           },
         selectNode: (node_id, select_by_click) => {
             nDispatch(nodeStatusAction.setSelect(node_id, select_by_click));
@@ -42,6 +74,11 @@ const useMindmap = () => {
         deleteNode: (node_id, parent_id) => {
             mDispatch(mindmapAction.deleteNode(node_id, parent_id));
             nDispatch(nodeStatusAction.setSelect(parent_id));
+            const new_node = {
+                node_id,
+                parent_id,
+              };
+              axios.post('http://localhost:4000/delete', new_node)
         },
         clearNodeStatus: () => {
             nDispatch(nodeStatusAction.clearAll());
